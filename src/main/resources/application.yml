@@ -1,0 +1,7 @@
+#General properties
+spring:
+  application:
+    name: device-metrics-api
+    
+server:
+  port: 8080
