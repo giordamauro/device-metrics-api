@@ -2,8 +2,13 @@ package org.unicen.dmetrics.firebase;
 
 import java.io.Serializable;
 
+import org.springframework.beans.factory.annotation.Value;
+
 public class SimpleFirebaseCrudRepository<E, T extends Serializable> implements FirebaseRepository<E, T> {
 
+//	@Value("${firebase.base.url}")
+//	private String firebaseHostUrl;
+	
     @Override
     public long count() {
         // TODO Auto-generated method stub
