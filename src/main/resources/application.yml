@@ -1,4 +1,9 @@
-#General properties
+#Application properties
+
+firebase:
+  host: https://blistering-fire-7241.firebaseio.com
+
+#Spring properties
 spring:
   application:
     name: device-metrics-api

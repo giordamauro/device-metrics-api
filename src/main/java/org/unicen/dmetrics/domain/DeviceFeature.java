@@ -5,11 +5,7 @@ import java.util.Objects;
 
 public class DeviceFeature {
 
-    private Integer id;
-
-    private DeviceModel device;
-    
-    private final String category;
+	private final String category;
 
     private final String name;
 
@@ -42,14 +38,6 @@ public class DeviceFeature {
         this.value = value;
     }
 
-    public Integer getId() {
-		return id;
-	}
-
-	public DeviceModel getDevice() {
-		return device;
-	}
-
 	public String getCategory() {
 		return category;
 	}
@@ -70,12 +58,6 @@ public class DeviceFeature {
 		return createdBy;
 	}
 
-	public void setModel(DeviceModel model) {
-        
-    	Objects.requireNonNull(model, "DeviceModel cannot be null");
-        this.device = model;
-    }
-
 	public void setCreatedBy(String createdBy) {
 		this.createdBy = createdBy;
 	}
@@ -86,7 +68,6 @@ public class DeviceFeature {
 		int result = 1;
 		result = prime * result + ((category == null) ? 0 : category.hashCode());
 		result = prime * result + ((createdBy == null) ? 0 : createdBy.hashCode());
-		result = prime * result + ((device == null) ? 0 : device.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((value == null) ? 0 : value.hashCode());
 		return result;
@@ -111,11 +92,6 @@ public class DeviceFeature {
 				return false;
 		} else if (!createdBy.equals(other.createdBy))
 			return false;
-		if (device == null) {
-			if (other.device != null)
-				return false;
-		} else if (!device.equals(other.device))
-			return false;
 		if (name == null) {
 			if (other.name != null)
 				return false;
@@ -131,7 +107,7 @@ public class DeviceFeature {
 
 	@Override
 	public String toString() {
-		return "DeviceFeature [id=" + id + ", category=" + category + ", name=" + name + ", value=" + value
+		return "DeviceFeature [category=" + category + ", name=" + name + ", value=" + value
 				+ ", createdOn=" + createdOn + ", createdBy=" + createdBy + "]";
 	}
 }

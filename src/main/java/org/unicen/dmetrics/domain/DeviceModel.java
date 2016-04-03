@@ -1,20 +1,22 @@
 package org.unicen.dmetrics.domain;
 
 import java.util.Date;
-import java.util.HashSet;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.Set;
+
+import org.unicen.dmetrics.firebase.annotation.Key;
+import org.unicen.dmetrics.firebase.annotation.Path;
 
 /**
  * 
  */
+@Path("/devices/{brand}")
 public class DeviceModel {
 
-    private Integer id;
-
+	@Key
     private final String brand;
 
+	@Key
     private final String model;
 
     private final Date createdOn;
@@ -22,22 +24,11 @@ public class DeviceModel {
     private final String createdBy;
     
 
-    private int featuresCount;
-
     private String name;
 
-    private Set<DeviceFeature> features = new HashSet<>();    
-    
-    private DeviceModel() {
-        // ORM initialization
+//    private Set<DeviceFeature> features = new HashSet<>();    
+  
         
-        this.id = null;
-        this.brand = null;
-        this.model = null;
-        this.createdOn = null;
-        this.createdBy = null;
-    }
-
     private DeviceModel(Builder builder) {
 
         Objects.requireNonNull(builder.brand, "Brand cannot be null");
@@ -56,21 +47,17 @@ public class DeviceModel {
         this.name = name;
     }
 
-    public void addFeatures(Set<DeviceFeature> features) {
-    	
-    	features.forEach(feature -> feature.setModel(this));
-
-    	this.features.addAll(features);
-    	this.featuresCount = features.size();
-	}
-    
-	public Integer getId() {
-		return id;
-	}
-	
-	public Set<DeviceFeature> getFeatures() {
-		return features;
-	}
+//    public void addFeatures(Set<DeviceFeature> features) {
+//    	
+//    	features.forEach(feature -> feature.setModel(this));
+//
+//    	this.features.addAll(features);
+//    	this.featuresCount = features.size();
+//	}
+//    	
+//	public Set<DeviceFeature> getFeatures() {
+//		return features;
+//	}
 
 	public String getBrand() {
         return brand;
@@ -137,8 +124,8 @@ public class DeviceModel {
 
 	@Override
 	public String toString() {
-		return "DeviceModel [id=" + id + ", brand=" + brand + ", model=" + model + ", createdOn=" + createdOn
-				+ ", createdBy=" + createdBy + ", name=" + name + ", features=" + features + "]";
+		return "DeviceModel [brand=" + brand + ", model=" + model + ", createdOn=" + createdOn
+				+ ", createdBy=" + createdBy + ", name=" + name + "]";//", features=" + features + "]";
 	}
 
 	public static class Builder {
