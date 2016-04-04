@@ -23,6 +23,8 @@ public class TestDevice {
     private String name;
 
     private Map<String, Set<TestFeature>> features;
+
+    private Set<TestFeature> newFeatures;
     
     @SuppressWarnings("unused")
 	private TestDevice(){
@@ -63,10 +65,26 @@ public class TestDevice {
 	public String getModel() {
 		return model;
 	}
+	
+	public Map<String, Set<TestFeature>> getFeatures() {
+		return features;
+	}
+
+	public void setFeatures(Map<String, Set<TestFeature>> features) {
+		this.features = features;
+	}
+
+	public Set<TestFeature> getNewFeatures() {
+		return newFeatures;
+	}
+
+	public void setNewFeatures(Set<TestFeature> newFeatures) {
+		this.newFeatures = newFeatures;
+	}
 
 	@Override
 	public String toString() {
 		return "TestDevice [model=" + model + ", createdOn=" + createdOn + ", createdBy=" + createdBy + ", name=" + name
-				+ ", features=" + features + "]";
+				+ ", features=" + features + ", newFeatures=" + newFeatures + "]";
 	}
 }
