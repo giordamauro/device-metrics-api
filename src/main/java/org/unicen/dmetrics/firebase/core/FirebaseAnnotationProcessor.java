@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.core.annotation.AnnotationUtils;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Component;
 import org.unicen.dmetrics.firebase.annotation.Key;
 import org.unicen.dmetrics.firebase.annotation.Path;
 import org.unicen.dmetrics.firebase.annotation.PathKey;
+import org.unicen.dmetrics.firebase.annotation.SetWrapper;
 
 @Component
 public class FirebaseAnnotationProcessor {
@@ -68,6 +70,19 @@ public class FirebaseAnnotationProcessor {
 			});
 			
 		return keyFields;
+	}
+	
+	public Optional<Field> getSetWrapperField(Class<?> entityClass) {
+
+		Set<Field> setWrapperFields = Arrays.stream(entityClass.getDeclaredFields())
+			.filter(field -> AnnotationUtils.findAnnotation(field, SetWrapper.class) != null)
+			.collect(Collectors.toSet());
+		
+		if(setWrapperFields.size() > 1) {
+			throw new IllegalStateException(String.format("Only one field can be annotated as @SetWrapper in Class %s", entityClass));
+		}
+
+		return setWrapperFields.isEmpty() ? Optional.empty() : Optional.of(setWrapperFields.iterator().next());
 	}
 
 }

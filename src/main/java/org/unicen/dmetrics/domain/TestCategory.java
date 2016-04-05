@@ -8,12 +8,12 @@ import org.unicen.dmetrics.firebase.annotation.SetWrapper;
 /**
  * 
  */
-@SetWrapper
 public class TestCategory {
 
 	@Key
 	private final String name;
 
+	@SetWrapper
 	private Set<TestFeature> features;
 
 	private TestCategory() {
