@@ -1,7 +1,6 @@
 package org.unicen.dmetrics.domain;
 
 import java.util.Date;
-import java.util.Map;
 import java.util.Set;
 
 import org.unicen.dmetrics.firebase.annotation.Key;
@@ -22,9 +21,7 @@ public class TestDevice {
 
     private String name;
 
-    private Map<String, Set<TestFeature>> features;
-
-    private Set<TestFeature> newFeatures;
+    private Set<TestCategory> features;
     
     @SuppressWarnings("unused")
 	private TestDevice(){
@@ -65,26 +62,18 @@ public class TestDevice {
 	public String getModel() {
 		return model;
 	}
-	
-	public Map<String, Set<TestFeature>> getFeatures() {
+
+	public Set<TestCategory> getFeatures() {
 		return features;
 	}
 
-	public void setFeatures(Map<String, Set<TestFeature>> features) {
+	public void setFeatures(Set<TestCategory> features) {
 		this.features = features;
-	}
-
-	public Set<TestFeature> getNewFeatures() {
-		return newFeatures;
-	}
-
-	public void setNewFeatures(Set<TestFeature> newFeatures) {
-		this.newFeatures = newFeatures;
 	}
 
 	@Override
 	public String toString() {
 		return "TestDevice [model=" + model + ", createdOn=" + createdOn + ", createdBy=" + createdBy + ", name=" + name
-				+ ", features=" + features + ", newFeatures=" + newFeatures + "]";
+				+ ", features=" + features + "]";
 	}
 }

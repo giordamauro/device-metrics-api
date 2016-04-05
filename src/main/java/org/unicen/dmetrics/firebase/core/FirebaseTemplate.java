@@ -3,14 +3,13 @@ package org.unicen.dmetrics.firebase.core;
 import java.lang.reflect.Field;
 import java.text.DateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
+
+import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import org.unicen.dmetrics.firebase.json.DateDeserializer;
@@ -34,18 +33,22 @@ public class FirebaseTemplate {
 
 	private final FirebaseConfiguration config;
 	private final RestTemplate restTemplate;
-	private final Gson gson;
+	private Gson gson;
 		
 	@Autowired
 	public FirebaseTemplate(FirebaseConfiguration config) {
 		this.config = config;
 		this.restTemplate = new RestTemplate();
+	}
 	
+	@PostConstruct
+	public void init() {
+
 		GsonBuilder builder = new GsonBuilder()
 				.setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_DASHES)
 				.setDateFormat(DateFormat.LONG)
 				.registerTypeAdapter(Date.class, new DateDeserializer())
-				.registerTypeAdapterFactory(new SetAdapterFactory());
+				.registerTypeAdapterFactory(new SetAdapterFactory(annotationProcessor, reflectionHelper));
 		
 	    this.gson = builder.create();
 	}

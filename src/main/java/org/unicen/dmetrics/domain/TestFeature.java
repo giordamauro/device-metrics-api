@@ -7,6 +7,9 @@ import org.unicen.dmetrics.firebase.annotation.Key;
 
 public class TestFeature {
 	
+	@Key
+	private final String name;
+	
 	private final String value;
 
 	private final Date createdOn;
@@ -16,6 +19,7 @@ public class TestFeature {
 	@SuppressWarnings("unused")
 	private TestFeature() {
 
+		this.name = null;
 		this.value = null;
 		this.createdOn = null;
 	}
@@ -26,8 +30,13 @@ public class TestFeature {
 		Objects.requireNonNull(name, "Name cannot be null");
 		Objects.requireNonNull(value, "Value cannot be null");
 
+		this.name = name;
 		this.createdOn = new Date();
 		this.value = value;
+	}
+	
+	public String getName() {
+		return name;
 	}
 
 	public String getValue() {
@@ -48,7 +57,6 @@ public class TestFeature {
 
 	@Override
 	public String toString() {
-		return "DeviceFeature [value=" + value + ", createdOn=" + createdOn + ", createdBy="
-				+ createdBy + "]";
+		return "TestFeature [name=" + name + ", value=" + value + ", createdOn=" + createdOn + ", createdBy=" + createdBy + "]";
 	}
 }

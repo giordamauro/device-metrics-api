@@ -1,34 +1,30 @@
 package org.unicen.dmetrics.domain;
 
-import java.util.Map;
+import java.util.Set;
 
 import org.unicen.dmetrics.firebase.annotation.Key;
+import org.unicen.dmetrics.firebase.annotation.SetWrapper;
 
 /**
  * 
  */
+@SetWrapper
 public class TestCategory {
 
 	@Key
 	private final String name;
 
-	private Map<String, TestFeature> features;
+	private Set<TestFeature> features;
 
-	@SuppressWarnings("unused")
 	private TestCategory() {
 		this.name = null;
 	}
 
-	public TestCategory(String name, Map<String, TestFeature> features) {
-		this.name = name;
-		this.features = features;
-	}
-
-	public Map<String, TestFeature> getFeatures() {
+	public Set<TestFeature> getFeatures() {
 		return features;
 	}
 
-	public void setFeatures(Map<String, TestFeature> features) {
+	public void setFeatures(Set<TestFeature> features) {
 		this.features = features;
 	}
 
