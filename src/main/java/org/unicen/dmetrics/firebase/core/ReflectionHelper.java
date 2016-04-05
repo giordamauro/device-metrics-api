@@ -48,5 +48,22 @@ public class ReflectionHelper {
 			throw new IllegalStateException("Cannot create object", e);
 		}
 	}
+	
+	public <T> T createInstanceByDefaultConstructor(Class<T> classToCreate) {
+		
+		try {
+			Constructor<T> constructor = classToCreate.getDeclaredConstructor();
+			boolean accessible = constructor.isAccessible();
+			constructor.setAccessible(true);
+			
+			T newInstance = constructor.newInstance();
+			constructor.setAccessible(accessible);
+			
+			return newInstance;
+		}
+		catch(Exception e){
+			throw new IllegalStateException(e);
+		}
+	}
 
 }

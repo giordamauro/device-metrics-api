@@ -30,7 +30,7 @@ public class SetWrapperTypeAdapter<T> extends TypeAdapter<T> {
 	public T read(JsonReader in) throws IOException {
 
 		@SuppressWarnings("unchecked")
-		T result = (T) reflectionHelper.createInstanceSilently(field.getType());
+		T result = (T) reflectionHelper.createInstanceSilently(field.getDeclaringClass());
 		
 		Object fieldValue = elementAdapter.read(in);
 		reflectionHelper.setPrivateField(result, field, fieldValue);
