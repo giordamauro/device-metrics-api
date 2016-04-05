@@ -37,7 +37,7 @@ public class SetAdapterFactory implements TypeAdapterFactory {
 
 		return annotationProcessor.getSetWrapperField(typeClass)
 			.map(field -> {
-				TypeAdapter<?> elementAdapter = gson.getAdapter(field.getType());
+				TypeAdapter<?> elementAdapter = gson.getAdapter(TypeToken.get(field.getGenericType()));
 				
 				return (TypeAdapter<T>) new SetWrapperTypeAdapter<>(field, elementAdapter, reflectionHelper);
 			})
