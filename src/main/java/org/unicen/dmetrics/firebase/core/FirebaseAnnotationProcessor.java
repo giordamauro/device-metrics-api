@@ -1,10 +1,12 @@
 package org.unicen.dmetrics.firebase.core;
 
 import java.lang.reflect.Field;
+import java.util.AbstractMap.SimpleEntry;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
@@ -30,10 +32,18 @@ public class FirebaseAnnotationProcessor {
 		return pathValue;
 	}
 	
-	public Field getKeyField(Class<?> entityClass) {
+	public Entry<String, Field> getKeyField(Class<?> entityClass) {
 	
-		List<Field> keyFields = Arrays.stream(entityClass.getDeclaredFields())
+		List<Entry<String, Field>> keyFields = Arrays.stream(entityClass.getDeclaredFields())
 			.filter(field -> AnnotationUtils.findAnnotation(field, Key.class) != null)
+			.map(field -> {
+				Key keyAnnotation = AnnotationUtils.findAnnotation(field, Key.class);
+				String keyName = keyAnnotation.value();
+				if(keyName.isEmpty()){
+					keyName = field.getName();
+				}
+				return new SimpleEntry<String, Field>(keyName, field);	
+			})
 			.limit(2)
 			.collect(Collectors.toList());
 		

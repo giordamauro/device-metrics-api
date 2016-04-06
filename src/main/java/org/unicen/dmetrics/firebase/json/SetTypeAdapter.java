@@ -3,6 +3,7 @@ package org.unicen.dmetrics.firebase.json;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.HashSet;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import org.unicen.dmetrics.firebase.core.FirebaseAnnotationProcessor;
@@ -56,7 +57,7 @@ public class SetTypeAdapter extends TypeAdapter<Set<?>> {
 
 	private void setElementKeyField(Object element, String property) {
 		
-		Field keyField = annotationProcessor.getKeyField(element.getClass());
-		reflectionHelper.setPrivateField(element, keyField, property);
+		Entry<String, Field> keyField = annotationProcessor.getKeyField(element.getClass());
+		reflectionHelper.setPrivateField(element, keyField.getValue(), property);
 	}
 }
