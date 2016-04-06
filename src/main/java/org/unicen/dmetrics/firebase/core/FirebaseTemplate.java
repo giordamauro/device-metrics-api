@@ -28,11 +28,11 @@ public class FirebaseTemplate {
 	private FirebaseAnnotationProcessor annotationProcessor;
 
 	@Autowired
-	private ReflectionHelper reflectionHelper;
+	private FirebaseEntityHelper entityHelper;
 
 	@Autowired
-	private FirebasePlaceholdersProcessor placeholdersProcessor;
-
+	private ReflectionHelper reflectionHelper;
+	
 	private final FirebaseConfiguration config;
 	private final RestTemplate restTemplate;
 	private Gson gson;
@@ -57,12 +57,7 @@ public class FirebaseTemplate {
 
 	public <T> Optional<T> findByKey(Class<T> domainClass, String key){
 
-		String entityPath = annotationProcessor.getPathUrl(domainClass);
-		
-		List<String> urlPlaceholders = placeholdersProcessor.getUrlPlaceholders(entityPath);
-		if(!urlPlaceholders.isEmpty()){
-			throw new IllegalStateException(String.format("Find by Key in class %s contains Url placeholders", domainClass));
-		}
+		String entityPath = entityHelper.getEntityUrl(domainClass);
 		
 		Entry<String, Field> keyField = annotationProcessor.getKeyField(domainClass);
 
@@ -80,7 +75,7 @@ public class FirebaseTemplate {
 
 		String entityPath = annotationProcessor.getPathUrl(domainClass);
 		
-		List<String> urlPlaceholders = placeholdersProcessor.getUrlPlaceholders(entityPath);
+		List<String> urlPlaceholders = entityHelper.getUrlPlaceholders(entityPath);
 		for(String placeholder : urlPlaceholders){
 
 			String value = keys.get(placeholder);
@@ -114,13 +109,29 @@ public class FirebaseTemplate {
 
 		return result;
 	}
+	
+	public String saveByIndexing(Object domainInstance) {
+		
+		Class<?> domainClass = domainInstance.getClass();
+		String entityPath = entityHelper.getEntityUrl(domainClass);
+		
+		String url = config.getHost() + entityPath + ".json";
+		FirebasePostResponse response = restTemplate.postForObject(url, domainInstance, FirebasePostResponse.class);
+		String id = response.getName();
+		
+		// TODO: @Key should be optional 		
+		Entry<String, Field> keyField = annotationProcessor.getKeyField(domainClass);
+		reflectionHelper.setPrivateField(domainInstance, keyField.getValue(), id);
+	
+		return id;
+	}
 
 	public <T> Iterable<T> findAll(Class<T> domainClass){
 
 		List<T> list = new ArrayList<>();
 
 		String entityPath = annotationProcessor.getPathUrl(domainClass);
-		List<String> urlPlaceholders = placeholdersProcessor.getUrlPlaceholders(entityPath);
+		List<String> urlPlaceholders = entityHelper.getUrlPlaceholders(entityPath);
 		if(!urlPlaceholders.isEmpty()){
 			throw new IllegalStateException(String.format("Find by Key in class %s contains Url placeholders", domainClass));
 		}

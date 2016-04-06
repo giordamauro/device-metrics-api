@@ -8,23 +8,23 @@ import org.unicen.dmetrics.firebase.annotation.SetWrapper;
 /**
  * 
  */
-public class TestCategory {
+public class DeviceFeatureCategory {
 
 	@Key
 	private final String name;
 
 	@SetWrapper
-	private Set<TestFeature> features;
+	private Set<DeviceFeature> features;
 
-	private TestCategory() {
+	private DeviceFeatureCategory() {
 		this.name = null;
 	}
 
-	public Set<TestFeature> getFeatures() {
+	public Set<DeviceFeature> getFeatures() {
 		return features;
 	}
 
-	public void setFeatures(Set<TestFeature> features) {
+	public void setFeatures(Set<DeviceFeature> features) {
 		this.features = features;
 	}
 

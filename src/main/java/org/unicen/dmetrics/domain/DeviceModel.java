@@ -25,7 +25,7 @@ public class DeviceModel {
 
     private String name;
 
-    private Set<TestCategory> features;
+    private Set<DeviceFeatureCategory> features;
     
     @SuppressWarnings("unused")
 	private DeviceModel(){
@@ -73,11 +73,11 @@ public class DeviceModel {
 		return model;
 	}
 
-	public Set<TestCategory> getFeatures() {
+	public Set<DeviceFeatureCategory> getFeatures() {
 		return features;
 	}
 
-	public void setFeatures(Set<TestCategory> features) {
+	public void setFeatures(Set<DeviceFeatureCategory> features) {
 		this.features = features;
 	}
 

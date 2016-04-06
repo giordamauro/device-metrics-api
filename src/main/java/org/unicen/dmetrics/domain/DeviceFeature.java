@@ -5,7 +5,7 @@ import java.util.Objects;
 
 import org.unicen.dmetrics.firebase.annotation.Key;
 
-public class TestFeature {
+public class DeviceFeature {
 	
 	@Key
 	private final String name;
@@ -17,14 +17,14 @@ public class TestFeature {
 	private String createdBy;
 
 	@SuppressWarnings("unused")
-	private TestFeature() {
+	private DeviceFeature() {
 
 		this.name = null;
 		this.value = null;
 		this.createdOn = null;
 	}
 
-	public TestFeature(String category, String name, String value) {
+	public DeviceFeature(String category, String name, String value) {
 
 		Objects.requireNonNull(category, "Category cannot be null");
 		Objects.requireNonNull(name, "Name cannot be null");
